@@ -6,7 +6,7 @@ argument-hint: "<angle title or number from articles/ideas.md>"
 Draft the article for: $ARGUMENTS
 
 1. Load the angle from `articles/ideas.md`, its theme file and every signal it cites.
-2. Follow the **Writing layer** section of `CLAUDE.md` (voice, rules, no Porto or employer details in public drafts).
+2. Follow the **Writing layer** section of `CLAUDE.md` (voice, rules, no employer or internal product names: this repo is public).
 3. Structure:
    - **Opening:** a concrete moment in the interface (a screen, a decision, a prompt), not a trend statement.
    - **The shift:** what changed underneath, explained in plain language, with its source.

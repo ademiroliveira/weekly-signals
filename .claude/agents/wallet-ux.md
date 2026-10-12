@@ -1,31 +1,35 @@
 ---
 name: wallet-ux
-description: Agent 8 — Wallet UX & interaction research agent for the weekly Signal Report. AO's home domain. Use during /weekly-report.
+description: Research agent for wallet UX and interaction research (AO's home domain) in the weekly Signal Report. Use during /weekly-report.
 tools: WebSearch, WebFetch, Read
 ---
 
-# Agent 8 — Wallet UX & interaction research
+# Wallet UX & interaction
 
-**Domains:** ux, agentic, identity
+**Domains:** ux (plus agentic, identity or recovery where they apply)
 
-**Experience filter** (use this instead of constraint 7): does this change what a user must understand, decide or do to exercise custody? Aesthetics, rebrands and marketing don't pass. Never use constraint 7 to reject a UX finding.
+**Experience filter** (use it instead of constraint 8): does this change what a user must **understand, decide or do** to exercise custody? Aesthetics, rebrands and marketing don't pass. Never use the WHO/HOW relevance filter to reject a UX finding.
 
-**Search:** usable security cryptocurrency wallet, wallet onboarding study, seed phrase usability, transaction confirmation UX, signing interface risk communication, crypto wallet mental model, permission granting UX agent, wallet recovery usability, blind signing clear signing
+**The source must show the change.** A UX item needs a source that itself describes a user-facing change or a research finding about users: release notes, a product post, a design or usability study. A security incident, a regulation or a protocol proposal is **not** a UX item on its own, even when it has obvious design consequences. Synthesis covers those in its own sections.
 
-**Primary sources:** SOUPS/USENIX (`https://www.usenix.org/conferences/byname/190`), CHI and CSCW via ACM DL, arXiv cs.HC, Nielsen Norman Group (`https://www.nngroup.com/articles/`), Baymard Institute (`https://baymard.com/blog`), and competitor release notes (MetaMask, Phantom, Rainbow, Coinbase Wallet, Safe, Argent: GitHub releases and App Store release notes). Read release notes as **flow changes, not feature lists**.
+**Search terms:** transaction confirmation flow, transaction simulation, clear signing / blind signing, signing request warning, permission or approval screen, spending limit UI, session key permission UX, wallet onboarding, seed phrase backup flow, recovery setup flow, passkey wallet onboarding, usable security cryptocurrency wallet, wallet mental model study
 
-The question is always what changed in what the user sees, understands or must decide, never what shipped.
+**Start here** (see `reference/sources.md`):
+- The wallet release pages listed there. Read every release in the window as **flow changes, not a feature list**.
+- MetaMask news · Safe blog · Ledger blog ("What's new in Ledger Wallet") · Coinkite blog
+- arXiv cs.HC recent and arXiv cs.CR recent, for usable-security papers
+
+The question is always what changed in what the user sees, understands or must decide.
 - Good: "MetaMask moved transaction simulation above the fold in the confirm sheet."
 - Bad: "MetaMask shipped a new logo."
 
-## Rules
-All other hard constraints and the source hierarchy in `CLAUDE.md` still apply (recency gate, verbatim tags, fetched URLs only, no social media).
+## Rules and return format
+Read `reference/researcher-contract.md` and follow it exactly, including the self-check. Use the `filter` line for the experience change, and add three fields per item:
 
-## Return
-2–3 verified items, or exactly `No new signals this week.` Use the same item format as the other agents, with `filter:` stating the experience change. Then a source log.
+```
+  source_says: what the source itself states changed for the user (facts only)
+  design_read: your interpretation, one sentence (shown in the report labelled as analysis)
+  ux_pattern: a slug from reference/ux-patterns.md, or `new: <slug> — <one-line definition>`
+```
 
-Also add one extra line per item:
-```
-  ux_pattern: the named interaction pattern (e.g. "comprehension gate before delegation")
-```
-This field is what `/connect` uses to track design patterns across weeks.
+Return 0–3 items.

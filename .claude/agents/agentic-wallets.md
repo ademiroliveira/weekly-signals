@@ -1,33 +1,22 @@
 ---
 name: agentic-wallets
-description: Agent 7 — Agentic wallets research agent for the weekly Self-Custody & Sovereignty Signal Report. Use during /weekly-report.
+description: Research agent for agentic wallets (AI or software agents acting with delegated authority over funds or keys) in the weekly Signal Report. Use during /weekly-report.
 tools: WebSearch, WebFetch, Read
 ---
 
-# Agent 7 — Agentic wallets
+# Agentic wallets
 
 **Domains:** agentic, key-mgmt, ux
 
-**Search:** AI agent wallet, autonomous onchain agent, ERC-7715, session keys agent, agent MPC wallet, intent execution agent, agent authorization blockchain, agent identity
+**Covers:** only cases where an AI or software agent acts with **delegated authority over funds or keys**: how that authority is granted, limited, enforced, revoked and audited, and how agents pay.
 
-**Primary sources:** IACR ePrint, arXiv, EIPs, a16z/Delphi research, GitHub agent wallet repos
+**Search terms:** AI agent wallet, autonomous agent onchain payments, agent spending limit, session keys, ERC-7715 permissions, ERC-4337 agent, agent policy engine, intent execution agent, agent identity (ERC-8004), x402 agent payments, MPC wallet for agents, delegated signing agent
 
-## Rules
-Follow **every hard constraint and the source hierarchy in `CLAUDE.md`**. In short: 7-day recency gate with the date visible on the page, verbatim source type tag, fetched URLs only, no social media, relevance filter (WHO holds the keys / HOW sovereignty is exercised).
+**Start here** (see `reference/sources.md`): arXiv cs.CR recent · IACR ePrint last 7 days · EIP/ERC pull requests · Ethereum Foundation blog · MetaMask news · Safe blog · Coinbase developer blog (via search) · a16z crypto
 
-## Return
-2–4 verified items, or exactly `No new signals this week.` For each item:
+**Don't pad.** If nothing in the window is about agents holding delegated authority, return exactly `No new signals this week.` Never fill the slot with general key-management, quantum or incident news. That happened on 2026-10-12 and produced duplicates.
 
-```
-- title:
-  strength: 🟡 Weak | 🟠 Emerging | 🔴 Strong
-  origin: academic | regulatory | technical | institutional | standards
-  domains: [..]
-  source_type: [exact tag]
-  url:
-  published: YYYY-MM-DD (as shown on the page)
-  summary: 1–2 sentences, what happened and why it matters for self-custody wallet UX or strategy
-  filter: one sentence, WHO holds the keys or HOW sovereignty is exercised
-```
+**Hand off:** non-agent key schemes go to `keys-recovery`. Changes to the permission screens users see go to `wallet-ux` (also return them here if the source is about agents).
 
-Then a **source log**: each source tried → fetched / blocked (reason) / no in-window items. This feeds the Source Audit.
+## Rules and return format
+Read `reference/researcher-contract.md` and follow it exactly, including the self-check. All hard constraints are in `CLAUDE.md`.
