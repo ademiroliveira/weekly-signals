@@ -12,6 +12,8 @@ If nothing fits, the wallet-ux agent may propose `new: <slug> — <one-line defi
 | `privacy-custody-tradeoff-disclosure` | Before entering a private or shielded mode, the user is told what verifiability, recovery or exit options change. | 2026-10-05 and 2026-10-07 Safe × Bermuda |
 | `outcome-bound-signing` | The user signs a guaranteed outcome (assertion, post-condition) rather than raw calldata. The transaction reverts if the outcome isn't met. | 2026-10-07 Ethereum transaction assertions |
 | `device-provenance-check` | Custody depends on confirming where a signing device came from and that it wasn't tampered with before seed generation. | 2026-10-12 Ledger reseller supply-chain attack |
+| `async-agent-approval-queue` | Requests from a user's AI agents wait in one queue and are approved once, always allowed or denied later on the user's signer, with a user-set budget for small payments. | 2026-10-19 Ledger Agent Intent |
+| `trusted-display-mode-indicator` | A persistent indicator on the device shows when the trusted environment controls the screen, so the user can tell an approval prompt comes from it. | 2026-10-19 Ledger Atom Secure Mode |
 
 ## Older free-text values
 
