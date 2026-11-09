@@ -15,6 +15,7 @@ If nothing fits, the wallet-ux agent may propose `new: <slug> — <one-line defi
 | `async-agent-approval-queue` | Requests from a user's AI agents wait in one queue and are approved once, always allowed or denied later on the user's signer, with a user-set budget for small payments. | 2026-10-19 Ledger Agent Intent |
 | `trusted-display-mode-indicator` | A persistent indicator on the device shows when the trusted environment controls the screen, so the user can tell an approval prompt comes from it. | 2026-10-19 Ledger Atom Secure Mode |
 | `third-party-verdict-attestation` | A pre-signing check is run by independent bonded third parties, and the user sees their combined verdict or attestation in place of a wallet-authored warning, optionally gating execution. | 2026-10-26 Safe Safenet |
+| `delayed-guardrail-loosening` | Onchain limits that signers cannot override by collecting more approvals, where removing or loosening a limit requires a time delay. | 2026-11-02 Safe Policy Engine |
 
 ## Older free-text values
 
