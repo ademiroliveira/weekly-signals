@@ -2,10 +2,10 @@
 theme: Who carries the burden of keeping self-run custody safe?
 status: active
 first_seen: 2026-10-05
-last_seen: 2026-11-09
-weeks: 6
+last_seen: 2026-11-16
+weeks: 7
 ---
-**Thesis so far:** Running your own Lightning node means the operator, not a vendor, has to notice and apply each security fix, and six reports across the archive carried a node or server release the operator had to apply, now spanning Eclair, Core Lightning, LND and BTCPay.
+**Thesis so far:** Running your own Lightning node means the operator, not a vendor, has to notice and apply each security fix, and seven reports across the archive carried a node or server release the operator had to apply, now spanning Eclair, Core Lightning, LND, LDK and BTCPay.
 
 ## Evidence
 - 2026-10-05 · 🟠 · Eclair Lightning Node Dual DoS Disclosure (fixed in v0.14.0) — two denial-of-service bugs reported in Optech #425. https://bitcoinops.org/en/newsletters/2026/10/02/
@@ -14,6 +14,7 @@ weeks: 6
 - 2026-10-26 · 🔴 · Eclair 0.14.4 and 0.14.5 Are Security Releases (Optech #428) — fund-theft flaws fixed, project strongly recommends upgrading. https://bitcoinops.org/en/newsletters/2026/10/23/
 - 2026-11-02 · 🔴 · Eclair 0.14.6 security release and Bitcoin Core backport policy (Optech #429). https://bitcoinops.org/en/newsletters/2026/10/30/
 - 2026-11-09 · 🟠 · Core Lightning 26.06.10 security release; LND MPTCP mitigation that leaves the fix to the host kernel; BTCPay Server 2.4.7 (Optech #430). https://bitcoinops.org/en/newsletters/2026/11/06/
+- 2026-11-16 · 🔴 · LDK v0.2.8 and v0.1.14 security releases fix several funds-loss vulnerabilities for nodes with untrusted counterparties (also in Optech #431). https://github.com/lightningdevkit/rust-lightning/releases/tag/v0.2.8
 
 ## Counter-evidence
 - Optech #427 says mobile wallets using an Eclair LSP, such as Phoenix, are unaffected, so the burden falls only on people who run the node themselves.
