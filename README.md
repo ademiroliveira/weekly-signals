@@ -6,7 +6,7 @@ AO's weekly **Self-Custody & Sovereignty Signal Report**, archived week by week 
 
 ```
 Monday (scheduled)       /weekly-report   sync → window → 5 research agents → 2 verifiers → draft check
-                                          → signals/YYYY-MM-DD.md → validate → render artifact → themes → commit → notify
+                                          → signals/YYYY-MM-DD.md → validate → render artifact → themes → angles → commit → notify
 Whenever you're writing  /connect         all weeks → themes/        (recurring threads, tensions, gaps)
                          /angle           themes → articles/ideas.md (claims with evidence)
                          /draft <angle>   → articles/drafts/         (in AO's voice, every claim cited)

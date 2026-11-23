@@ -15,7 +15,7 @@ tools: WebSearch, WebFetch, Read
 **Search terms:** transaction confirmation flow, transaction simulation, clear signing / blind signing, signing request warning, permission or approval screen, spending limit UI, session key permission UX, wallet onboarding, seed phrase backup flow, recovery setup flow, passkey wallet onboarding, usable security cryptocurrency wallet, wallet mental model study
 
 **Start here** (see `reference/sources.md`):
-- The wallet release pages listed there. Read every release in the window as **flow changes, not a feature list**.
+- The wallet release pages listed there. Find the releases in the window through the GitHub releases API (`published_at`), then read each one as **flow changes, not a feature list**. Cite the HTML release page.
 - MetaMask news · Safe blog · Ledger blog ("What's new in Ledger Wallet") · Coinkite blog
 - arXiv cs.HC recent and arXiv cs.CR recent, for usable-security papers
 

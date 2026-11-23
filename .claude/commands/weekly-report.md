@@ -1,5 +1,5 @@
 ---
-description: Run the weekly Self-Custody & Sovereignty Signal Report. Sync, set the window, research, verify, synthesize, check the draft, archive, render, publish, update themes, commit, notify.
+description: Run the weekly Self-Custody & Sovereignty Signal Report. Sync, set the window, research, verify, synthesize, check the draft, archive, render, publish, update themes, refresh angles, commit, notify.
 ---
 
 Compile this week's **Self-Custody & Sovereignty Signal Report**. All rules (window, repeats, tags, strength rubric, vocabularies) are in `CLAUDE.md`.
@@ -58,15 +58,19 @@ The page is generated, so don't edit the HTML by hand.
 ## Step 8: Update themes
 Follow `.claude/commands/connect.md` over the last 8 reports. Keep it brief: update the existing theme files, and add a new one only when a thread spans 2+ reports.
 
-## Step 9: Commit
-`git add signals/ themes/ reference/ux-patterns.md && git commit -m "signals: week of <window>" && git push`. Retry a failed push once at most. The week is already safe in the artifact.
+## Step 9: Refresh article angles
+Follow `.claude/commands/angle.md` in **weekly mode** (described there). Update the existing ideas whose theme or evidence moved this week, and add at most one new angle. If nothing qualifies, leave `articles/ideas.md` unchanged. Never draft an article in this run.
 
-## Step 10: Push notification
+## Step 10: Commit
+`git add signals/ themes/ reference/ux-patterns.md articles/ideas.md && git commit -m "signals: week of <window>" && git push`. Retry a failed push once at most. The week is already safe in the artifact.
+
+## Step 11: Push notification
 Send it with the summary in `<routine_summary>` tags. The first sentence is the banner. Include:
 - the Top 3 titles with their strength
 - the window
 - one line for UX if there's a UX item
 - one line for Patterns if any
+- one line for Angles if an idea is new or became `ready` this week (its title, and "run /draft" if ready)
 - the kill count
 - any problem: a failed push, a newly blocked source, a gap in the window, or a sync that copied weeks
 
