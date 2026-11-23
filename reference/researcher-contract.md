@@ -11,7 +11,7 @@ Every research agent follows this file. Domain-specific search terms and sources
 2. **Go wider with WebSearch**, using your search terms plus the month and year.
 3. **Check each candidate:**
    - Fetch it.
-   - Confirm the publication date is on the page and inside the window.
+   - Confirm the publication date is on the page and inside the window. For a GitHub release, take `published_at` from the releases API (see `CLAUDE.md` rule 1) and report it as `published`.
    - Check it against the seen list.
    - Pick the tag from the tag table in `CLAUDE.md`.
    - Set its stage and strength with the rubric.
@@ -22,7 +22,7 @@ Every research agent follows this file. Domain-specific search terms and sources
 
 ## Self-check before you return
 Drop any item that fails one of these. The verifier will kill it anyway, and every kill costs a fetch.
-- [ ] Date visible on the page and inside the window
+- [ ] Date visible on the page (or `published_at` in the GitHub releases API) and inside the window
 - [ ] URL is not in the seen list (or the item is a true Update with a new primary document)
 - [ ] Tag copied verbatim from the tag table and fits the source type
 - [ ] Journalism only from the four allowed outlets, and only after tiers 1–6 gave fewer than 2 items
