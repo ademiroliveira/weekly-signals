@@ -16,6 +16,7 @@ If nothing fits, the wallet-ux agent may propose `new: <slug> — <one-line defi
 | `trusted-display-mode-indicator` | A persistent indicator on the device shows when the trusted environment controls the screen, so the user can tell an approval prompt comes from it. | 2026-10-19 Ledger Atom Secure Mode |
 | `third-party-verdict-attestation` | A pre-signing check is run by independent bonded third parties, and the user sees their combined verdict or attestation in place of a wallet-authored warning, optionally gating execution. | 2026-10-26 Safe Safenet |
 | `delayed-guardrail-loosening` | Onchain limits that signers cannot override by collecting more approvals, where removing or loosening a limit requires a time delay. | 2026-11-02 Safe Policy Engine |
+| `access-signing-separation` | The app login and its roles control visibility and drafting only; signing authority stays with onchain keys and threshold, and the interface says so explicitly. | 2026-11-23 Safe Pro Workspace |
 
 ## Older free-text values
 
