@@ -1,0 +1,25 @@
+# Catch-up queue
+
+Candidates that earlier runs missed because of a pipeline fault. `/weekly-report` reads this file in step 1, verifies each candidate like any other item, puts the ones that pass in the report's **Catch-up** section (at most 8, never the Top 3), and removes every candidate it processed. Rules are in `CLAUDE.md` rule 1.
+
+A candidate is a lead, not a citation. The run must fetch every URL itself, date it by the usual rules (GitHub releases: `published_at` from the releases API) and write the summary from the page. Anything published before the run's `catchup_window` is dropped unprocessed.
+
+Format: `- <date> · <title> · <url> · missed_because: <fault> · lead: <what to check>`
+
+## Queued 2026-11-23 (manual audit of the 2026-11-02 to 2026-11-23 reports)
+
+In priority order. Merge releases from the same wallet that change the same flow.
+
+- 2026-11-19 · Trezor Suite v26.11.2 · https://github.com/trezor/trezor-suite/releases/tag/v26.11.2 · missed_because: release page shows no year (fixed: dates from the releases API); v26.11.1 pre-release failed the same way on 2026-11-16 · lead: warning before sending to a never-used address; packaging and tamper checks in device setup; Model One Earn signing shows the contract address first
+- 2026-11-18 · Ledger Live Mobile 4.29.0 · https://github.com/LedgerHQ/ledger-live/releases/tag/live-mobile%404.29.0 · missed_because: release page shows no year (2026-11-23); 4.28.0 skipped as "marginal" (2026-11-16) · lead: counterfeit warning first for flagged devices; closing the update drawer no longer skips the OS update; leaving device checks asks for confirmation. Also 4.28.0 (2026-11-12, https://github.com/LedgerHQ/ledger-live/releases/tag/live-mobile%404.28.0): unseeded-setup exit confirmation, the backup selection sheet shows when the backup was saved
+- 2026-11-03 · Safe{Wallet} web-v1.105.0 · https://github.com/safe-global/safe-wallet-monorepo/releases/tag/web-v1.105.0 · missed_because: thin wallet-ux run (2026-11-09: 1 source fetched) · lead: look-alike address warnings with a confirm dialog in the address book and add-Safe flows; recipient allowlist under Policies (experimental toggle); last signer of an m/n Safe can execute without signing first
+- 2026-11-20 · MetaMask Mobile v8.21.0 · https://github.com/MetaMask/metamask-mobile/releases/tag/v8.21.0 · missed_because: release page shows no year (2026-11-23) · lead: Permit2 approval screens show token, spender, amount and expiration (#39352)
+- 2026-11-16 · Ledger: Solana Clear Signing · https://www.ledger.com/blog-solana-clear-signing · missed_because: published after the 2026-11-16 run on its last window day; excluded as outside the window on 2026-11-23 (fixed: recheck day) · lead: clear signing for Solana, whole-transaction-or-blind-signing-warning rule, Solana app 1.17.0+
+- 2026-11-12 · Trezor: CryptoBilis investigation update · https://trezor.io/cs/blog/news/our-cryptobilis-investigation-what-we-found-and-what-weve-changed · missed_because: not found by the 2026-11-16 run; excluded as outside the window on 2026-11-23 · lead: implants limited to Safe 5 from one reseller; reseller network cut about 80%; buyers still told to move funds to a new seed. Find and cite the English page. Check whether the original 2026-10-30 warning was ever covered (it was not in any report as of 2026-11-23)
+- 2026-11-20 · MetaMask extension v13.58.0 · https://github.com/MetaMask/metamask-extension/releases/tag/v13.58.0 · missed_because: skipped as "minor" (2026-11-23) and v13.57.0 as "marginal" (2026-11-16) · lead: addresses in confirmations and Send keep their endings visible; v13.57.0 (2026-11-13) shows more of each recipient address in Send
+- 2026-11-19 · Rainbow v2.0.49 · https://github.com/rainbow-me/rainbow/releases/tag/v2.0.49 · missed_because: skipped as "minor" (2026-11-23) · lead: dapp requests show "Simulation Unavailable" before approval when simulation fails. Also v2.0.47 (2026-11-03, https://github.com/rainbow-me/rainbow/releases/tag/v2.0.47): Recover Lost Passkey in the sign-in gate
+- 2026-11-17 · Safe{Wallet} web-v1.106.0 · https://github.com/safe-global/safe-wallet-monorepo/releases/tag/web-v1.106.0 · missed_because: release notes truncated in the fetch (2026-11-23; fixed: notes from the API body) · lead: CoW swaps request approval for the trade amount only; bulk execute review flags risky transactions
+- 2026-11-06 · MetaMask extension v13.56.0 · https://github.com/MetaMask/metamask-extension/releases/tag/v13.56.0 · missed_because: thin wallet-ux run (2026-11-09) · lead: warnings for malicious nested transactions; sponsored fees name the sponsor. Also v13.55.0 (2026-10-29, failed on no year 2026-11-02): malicious-token warnings in Swaps from deep links, recovery completion screen updated
+- 2026-10-28 · Trezor Suite v26.10.2@mobile · https://github.com/trezor/trezor-suite/releases/tag/v26.10.2%40mobile · missed_because: release dates without a year (2026-11-02) · lead: passphrases up to 128 characters; Sign & Verify on mobile
+
+Excluded on purpose: Rabby v0.94.13 to v0.94.17 (the releases API body is empty, so there are no notes to cite).

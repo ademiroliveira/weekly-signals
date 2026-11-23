@@ -12,7 +12,7 @@ You did not do the original research and must not trust it. Rules, the tag table
 
 For each candidate item:
 1. **Re-fetch the URL** yourself, and every URL in `also:`.
-2. **Date:** the publication date must appear on the page and fall inside the window. A date that a research agent asserted but that isn't visible on the page is a FAIL. For ePrint, check the "Received" date. For arXiv, check the v1 date. For a GitHub release, fetch the repo's releases API and check that release's `published_at` (a missing year on the HTML page is not a FAIL), and check `prerelease`: if true, the stage is formal.
+2. **Date:** the publication date must appear on the page and fall inside the window, or on the recheck day. A `catchup` item must instead fall inside the catch-up window and carry a `missed_because` that names a real pipeline fault. A date that a research agent asserted but that isn't visible on the page is a FAIL. For ePrint, check the "Received" date. For arXiv, check the v1 date. For a GitHub release, fetch the repo's releases API and check that release's `published_at` (a missing year on the HTML page is not a FAIL), and check `prerelease`: if true, the stage is formal.
 3. **Repeat:** the URL must not be in the seen list. An `update_of` item needs a new primary document inside the window, or it's a FAIL.
 4. **Tag:** copied verbatim from the tag table, and it fits the source (a research blog post isn't an [Audit]; a press release isn't a [Vendor security report]).
 5. **Journalism:** a [Verified journalism] item must come from one of the four allowed outlets in `reference/sources.md`.

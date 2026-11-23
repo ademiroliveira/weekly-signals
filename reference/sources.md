@@ -56,7 +56,7 @@ Status: **ok** = the listing loaded with visible dates when tested on 2026-10-12
 | Coinkite (COLDCARD) blog | `https://blog.coinkite.com/` | used | |
 | Safe blog | `https://safe.global/blog` | used | |
 | MetaMask news | `https://metamask.io/news` | used | |
-| GitHub releases API | `https://api.github.com/repos/<org>/<repo>/releases?per_page=30` | ok | Tested 2026-11-23. **Use this first for dates**: each release has `published_at`, `prerelease`, `html_url` and the notes (`body`). Ask WebFetch for those fields only. Monorepos (e.g. `LedgerHQ/ledger-live`) publish many package releases, so filter by tag prefix. |
+| GitHub releases API | `https://api.github.com/repos/<org>/<repo>/releases?per_page=30` | ok | Tested 2026-11-23. **Use this first for dates**: each release has `published_at`, `prerelease`, `html_url` and the notes (`body`). Ask WebFetch for those fields only. Monorepos publish many package releases, so filter by tag prefix: for `LedgerHQ/ledger-live` use `live-mobile@` and `@ledgerhq/live-desktop@`. Rabby's release bodies are empty, so Rabby releases can't be used. |
 | GitHub release pages | `https://github.com/<org>/<repo>/releases` | partial | `.atom` feeds are blocked. HTML pages load with notes, but current-year dates show as "DD Mon HH:MM" with no year: take the date from the API row above and cite this page as `url`. A release with no notes on the page can't be used. |
 | Trezor blog | `https://blog.trezor.io/` | partial | Loads without post listings. Use WebSearch for recent Trezor posts and fetch each one. |
 | Trail of Bits, OpenZeppelin, Zellic, Halborn blogs | | untested | Halborn posts have had no visible publish date. Those can't be used. |

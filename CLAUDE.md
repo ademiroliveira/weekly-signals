@@ -21,6 +21,7 @@ Live artifact: https://claude.ai/artifact/G1ftZVaD68n3Guq65H7LSQ
 | `scripts/signals.py` | `prior` (window + already-covered items) · `validate` (format/vocabulary gate) · `render` (artifact HTML from all weeks) |
 | `reference/sources.md` | Tested entry points per source tier, and the journalism allowlist |
 | `reference/ux-patterns.md` | Controlled vocabulary for `ux_pattern` |
+| `reference/catch-up.md` | Queue of items earlier runs missed, consumed by the next `/weekly-report` |
 | `reference/report-style.md` | Visual spec for the artifact |
 | `themes/*.md` | Recurring threads across weeks, maintained by `/connect` |
 | `articles/` | `ideas.md` (from `/angle`), `drafts/`, `published/` |
@@ -33,6 +34,8 @@ Live artifact: https://claude.ai/artifact/G1ftZVaD68n3Guq65H7LSQ
 
 1. **Report window.** The window runs from the day after the previous report's window end through today, inclusive. It is never longer than 7 days. If the previous report is older than that, the window is today − 6 through today, and the gap is noted in the Source Audit. `python3 scripts/signals.py prior` prints the window.
    - Only items whose publication date falls inside the window qualify, and the date must be visible on the page itself.
+   - **Recheck day.** The previous run happened partway through its last day, so that day is searched again. An item dated on `recheck_day` (from `prior`) qualifies if its URL isn't in the seen list.
+   - **Catch-up.** An item that an earlier run missed because of a pipeline fault (a rule since fixed, a source that failed, a run that came back thin) may go in the `catchup` section if it was published inside `catchup_window` (the 28 days before the window). It needs `missed_because:` naming the fault, passes every other rule here, and never enters the Top 3. At most 8 per report. Candidates are queued in `reference/catch-up.md`.
    - Never estimate, extrapolate or infer a date. Sequential IDs (ePrint numbers, arXiv IDs, PR numbers) are not evidence of a date.
    - For ePrint, use the paper's "Received" date, not "last updated". For arXiv, use the v1 submission date.
    - For GitHub releases, use `published_at` from the releases API (`https://api.github.com/repos/<org>/<repo>/releases`). The HTML release page shows the current year's dates as "DD Mon HH:MM" with no year, and the API is GitHub's own record of the same release, so its `published_at` counts as the visible date. The HTML release page stays the cited `url`, and its notes must still be on the page. A release with `prerelease: true` is stage **formal** (beta), not in-force.
@@ -103,7 +106,7 @@ Cap: if the only sources are tier-7 journalism, the item is at most 🟠, and a 
 
 ## Vocabularies (enforced by `validate`)
 
-- `section`: `top` · `ux` · `radar` (older reports use `weak` for the radar section)
+- `section`: `top` · `ux` · `radar` · `catchup` (older reports use `weak` for the radar section)
 - `strength`: `strong` · `emerging` · `weak`
 - `stage`: `early` · `formal` · `in-force`
 - `origin`: `academic` · `standards` · `regulatory` · `institutional` · `technical` · `journalism`
