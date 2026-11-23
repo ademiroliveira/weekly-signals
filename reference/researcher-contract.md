@@ -3,7 +3,7 @@
 Every research agent follows this file. Domain-specific search terms and sources are in each agent's own file. All rules come from `CLAUDE.md`.
 
 ## What you receive
-- Today's date and the **report window** (start and end, inclusive).
+- Today's date and the **report window** (start and end, inclusive), plus the **recheck day** (the previous run's last day, searched again because the run happened partway through it).
 - The **seen list**: URLs and titles already covered in earlier reports, from `python3 scripts/signals.py prior`.
 
 ## How to work
@@ -22,7 +22,7 @@ Every research agent follows this file. Domain-specific search terms and sources
 
 ## Self-check before you return
 Drop any item that fails one of these. The verifier will kill it anyway, and every kill costs a fetch.
-- [ ] Date visible on the page (or `published_at` in the GitHub releases API) and inside the window
+- [ ] Date visible on the page (or `published_at` in the GitHub releases API) and inside the window or on the recheck day
 - [ ] URL is not in the seen list (or the item is a true Update with a new primary document)
 - [ ] Tag copied verbatim from the tag table and fits the source type
 - [ ] Journalism only from the four allowed outlets, and only after tiers 1–6 gave fewer than 2 items

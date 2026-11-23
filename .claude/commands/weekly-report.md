@@ -12,12 +12,15 @@ Artifact: `https://claude.ai/artifact/G1ftZVaD68n3Guq65H7LSQ`. Use the scratchpa
    - If `report_exists_for_today` is true, stop and send a notification. Never overwrite a report.
    - If `window.empty` is true, stop and send a notification.
    - Note `gap_days` for the Source Audit.
+   - Keep `recheck_day` and `catchup_window` for later steps.
 
 ## Step 1: Research (5 agents IN PARALLEL)
 Spawn `keys-recovery`, `hardware-threats`, `policy-institutions`, `agentic-wallets` and `wallet-ux` at once. Give each one:
 - today's date
-- the window start and end
+- the window start and end, and the recheck day
 - the full `seen` list (URL + title + report)
+
+At the same time, read `reference/catch-up.md`. Every queued candidate published inside `catchup_window` and not in the `seen` list goes to step 3 as a `catchup` candidate. Fetch it and write it up in the researcher format, with `missed_because` from the queue.
 
 ## Step 2: Route and merge
 - **Hand-offs.** For each hand-off URL that no agent returned as an item, fetch it and write it up in the researcher format yourself.
@@ -30,7 +33,8 @@ Split the candidates evenly. Give each verifier the window and the seen list. Dr
 ## Step 4: Synthesize
 - **Top 3:** the three items with the greatest effect on who holds keys or how custody works, chosen from 🟠/🔴 items (the rule is in `CLAUDE.md`).
 - **UX & Interaction:** `wallet-ux` items, plus `agentic-wallets` items whose source shows a user-facing change. If an item's `ux_pattern` is `new:`, either adopt it (add a row to `reference/ux-patterns.md` and use the slug) or map it to an existing slug.
-- **On the radar:** every other verified item.
+- **On the radar:** every other verified item, including `ux-overflow` hand-offs that pass verification.
+- **Catch-up:** verified `catchup` items, at most 8. Merge releases from the same wallet that change the same flow. Each gets one line, written like a radar line, plus `Missed because: <fault>`. Catch-up items can feed **Patterns across weeks**, but never the Top 3. Then remove every candidate you processed from `reference/catch-up.md` (included or failed) and note the outcome in the Source Audit.
 - **Patterns across weeks:** compare this week's items with earlier reports (the `prior` output, `signals/` and `themes/`). Look for:
   - a `ux_pattern` seen before
   - an `update_of` chain
@@ -62,7 +66,7 @@ Follow `.claude/commands/connect.md` over the last 8 reports. Keep it brief: upd
 Follow `.claude/commands/angle.md` in **weekly mode** (described there). Update the existing ideas whose theme or evidence moved this week, and add at most one new angle. If nothing qualifies, leave `articles/ideas.md` unchanged. Never draft an article in this run.
 
 ## Step 10: Commit
-`git add signals/ themes/ reference/ux-patterns.md articles/ideas.md && git commit -m "signals: week of <window>" && git push`. Retry a failed push once at most. The week is already safe in the artifact.
+`git add signals/ themes/ reference/ux-patterns.md reference/catch-up.md articles/ideas.md && git commit -m "signals: week of <window>" && git push`. Retry a failed push once at most. The week is already safe in the artifact.
 
 ## Step 11: Push notification
 Send it with the summary in `<routine_summary>` tags. The first sentence is the banner. Include:
@@ -100,7 +104,8 @@ items:
     published: YYYY-MM-DD
     also: [<url>, <url>]        # optional
     update_of: <earlier id>     # Updates only
-    ux_pattern: <slug>          # ux items only
+    ux_pattern: <slug>          # ux items only (optional on catchup items)
+    missed_because: "<fault>"   # catchup items only
 ---
 
 # Self-Custody & Sovereignty Signal Report — Week of <Mon D – D, YYYY>
@@ -129,6 +134,10 @@ items:
 
 ## On the radar
 - **<Title>** · 🟡 Weak · <origin> · <domains>: one sentence. [source type] <url> · <date>
+
+## Catch-up
+(only when there are catchup items; missed by earlier runs, published before this window)
+- **<Title>** · 🔴 Strong · <origin> · <domains>: one sentence. [source type] <url> · <date> · Missed because: <fault>
 
 ## Pulses
 - **Academic:** …

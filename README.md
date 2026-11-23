@@ -20,6 +20,7 @@ Whenever you're writing  /connect         all weeks → themes/        (recurrin
 - `reference/`:
   - `sources.md`: tested source entry points and the journalism allowlist
   - `ux-patterns.md`: the pattern vocabulary
+  - `catch-up.md`: items earlier runs missed, picked up by the next run
   - `researcher-contract.md`: shared agent rules
   - `report-style.md`: the visual spec
 - `.claude/agents/`: `keys-recovery`, `hardware-threats`, `policy-institutions`, `agentic-wallets`, `wallet-ux`, `verifier`.

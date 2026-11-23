@@ -26,6 +26,8 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CUTOVER = "2026-10-13"  # reports generated on/after this date follow the current rules
 MAX_WINDOW_DAYS = 7
+CATCHUP_DAYS = 28   # a catch-up item may be published up to 28 days before the window starts
+CATCHUP_MAX = 8     # at most this many catch-up items per report
 REPO_SIGNALS_URL = "https://github.com/ademiroliveira/weekly-signals/tree/main/signals"
 
 TAGS = [
@@ -34,7 +36,7 @@ TAGS = [
     "[Institutional report]", "[Audit]", "[Vendor security report]", "[GitHub release]",
     "[Protocol blog]", "[Verified journalism]",
 ]
-SECTIONS = {"top", "ux", "radar"}
+SECTIONS = {"top", "ux", "radar", "catchup"}
 LEGACY_SECTIONS = {"weak": "radar"}
 STRENGTHS = {"strong", "emerging", "weak"}
 STAGES = {"early", "formal", "in-force"}
@@ -194,6 +196,13 @@ def compute_prior(reports: list[dict], today: dt.date) -> dict:
             start = floor
     else:
         start = today - dt.timedelta(days=MAX_WINDOW_DAYS - 1)
+    # The previous run happened partway through its last day, so anything published
+    # later that day was never seen. That day is re-checked (when it's adjacent).
+    recheck_day = None
+    if prev and d(prev["end"]) == start - dt.timedelta(days=1):
+        recheck_day = prev["end"]
+    catchup = {"start": (start - dt.timedelta(days=CATCHUP_DAYS)).isoformat(),
+               "end": (start - dt.timedelta(days=1)).isoformat(), "max_items": CATCHUP_MAX}
     slugs, legacy = load_ux_patterns()
     seen, patterns = [], {}
     for r in earlier:
@@ -209,6 +218,8 @@ def compute_prior(reports: list[dict], today: dt.date) -> dict:
         "today": today.isoformat(),
         "window": {"start": start.isoformat(), "end": today.isoformat(),
                    "days": (today - start).days + 1, "empty": start > today},
+        "recheck_day": recheck_day,
+        "catchup_window": catchup,
         "previous_report": {"file": f"signals/{prev['name']}.md", "week": prev["fm"].get("week")} if prev else None,
         "gap_days": gap_days,
         "report_exists_for_today": exists_today,
@@ -307,7 +318,15 @@ def validate(path: pathlib.Path, reports: list[dict]) -> tuple[list[str], list[s
             need(st == "weak", f"{label}: a single journalism article is capped at weak", hard=False)
         pub = it.get("published")
         if pub and w_start and DATE_RE.match(str(pub)):
-            need(w_start <= pub <= w_end, f"{label}: published {pub} is outside the window {w_start}..{w_end}")
+            if sec == "catchup":
+                cw = prior.get("catchup_window") or {}
+                need(bool(cw) and cw["start"] <= pub <= cw["end"],
+                     f"{label}: catch-up item published {pub} must fall in {cw.get('start')}..{cw.get('end')}")
+                need(bool(it.get("missed_because")), f"{label}: catch-up item needs missed_because")
+            else:
+                ok = w_start <= pub <= w_end or (strict and pub == prior.get("recheck_day"))
+                need(ok, f"{label}: published {pub} is outside the window {w_start}..{w_end}"
+                         + (f" (and isn't the recheck day {prior['recheck_day']})" if prior.get("recheck_day") else ""))
         elif pub:
             errors.append(f"{label}: published must be YYYY-MM-DD")
         url = it.get("url")
@@ -328,6 +347,8 @@ def validate(path: pathlib.Path, reports: list[dict]) -> tuple[list[str], list[s
                 need(map_pattern(pat, slugs, legacy) is not None,
                      f"{label}: ux_pattern '{pat}' doesn't map to reference/ux-patterns.md", hard=False)
     need(tops <= 3, f"{tops} items in section top (max 3; merge corroborating sources into also:)", hard=False)
+    n_catch = sum(1 for it in items if it.get("section") == "catchup")
+    need(n_catch <= CATCHUP_MAX, f"{n_catch} catch-up items (max {CATCHUP_MAX}; merge same-story releases)", hard=False)
     for url, secs in url_sections.items():
         if len(secs) > 1:
             msg = f"same URL used by {len(secs)} items ({', '.join(secs)}): {url}"
@@ -339,6 +360,8 @@ def validate(path: pathlib.Path, reports: list[dict]) -> tuple[list[str], list[s
     h2 = [h.strip() for h in re.findall(r"^## (.+)$", body, re.M)]
     for req in REQUIRED_H2 if strict else []:
         need(any(h.startswith(req) for h in h2), f"body: missing section '## {req}'", hard=False)
+    if n_catch:
+        need(any(h.startswith("Catch-up") for h in h2), "body: catch-up items need a '## Catch-up' section", hard=False)
     hits = forbidden_words(path.read_text(encoding="utf-8"))
     need(not hits, f"contains an internal name that must not be published: {sorted(hits)}", hard=False)
     return errors, warnings
