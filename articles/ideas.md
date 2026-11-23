@@ -4,33 +4,29 @@ Maintained by `/angle`. Newest first.
 
 ## 2026-09-28 — seeded from the first archived week
 
-### Comprehension before configuration: how delegation should feel
-- **Thesis:** Delegating custody (to a co-signer, a proposer or an agent) should always be explained before it's configured. Otherwise the form itself becomes the explanation, and users learn scope by filling in fields.
-- **Why now:** Safe shipped two separate comprehension gates at delegation points in a single release.
-- **Evidence:** 2026-09-28 · Safe{Wallet} web-v1.101.0 · https://github.com/safe-global/safe-wallet-monorepo/releases/tag/web-v1.101.0 (needs 2+ more signals)
-- **The design move:** explanation-first, configuration-second, at every point where trust is delegated.
-- **Counterpoint:** added friction; expert users skip the explanation anyway.
-- **Fit:** Refined (craft) · LinkedIn
-- **Readiness:** needs 2–3 more weeks of signal
+### Comprehension before configuration: how delegation should feel (merged 2026-11-23)
+- Folded into **Logging in is not holding the keys** (2026-11-23), as its "explain before you delegate" section. Both drew on the same Safe release.
 
-### Your spending limit is a UX promise the cryptography doesn't keep
+### Your spending limit is a UX promise the cryptography doesn't keep (updated 2026-11-23)
+- **Theme:** none yet
 - **Thesis:** When an agent wallet shows a spending limit, the interface is promising something that app-layer policy can't guarantee. Designers need to know which layer enforces what they display.
 - **Why now:** BTS (IACR 2026/2176) formally proves app-layer budget checks can be bypassed; agent payments are growing fast.
-- **Evidence:** 2026-09-28 · Budgeted Threshold Signatures · https://eprint.iacr.org/2026/2176 ; 2026-09-28 · Safe spending limits pre-flow (UX side)
+- **Evidence:** 2026-09-28 · 🔴 · Budgeted Threshold Signatures · https://eprint.iacr.org/2026/2176 ; 2026-09-28 · 🟠 · Safe{Wallet} web-v1.101.0: Proposer Role Education and Spending Limits Pre-Flow · https://github.com/safe-global/safe-wallet-monorepo/releases/tag/web-v1.101.0 ; 2026-11-02 · 🔴 · Update: MetaMask Agent Wallet Goes Live as a Grok Bot Plugin, with Guard Mode Limits and Out-of-Band Approval · https://metamask.com/news/metamask-agent-wallet-grok-bot ; 2026-11-23 · 🟡 · Two Preprints from the Same Team Find That What a Wallet Signs for an AI Agent's Stablecoin Payment Can Allow Transfers the Buyer's Mandate Does Not · https://arxiv.org/abs/2611.24989
 - **The design move:** show enforcement level honestly in the UI ("enforced by your keys" vs "enforced by the app").
 - **Counterpoint:** users don't care about layers; they care whether it works. Too much detail creates anxiety.
 - **Fit:** Refined · talk
-- **Readiness:** close; one more agentic UX signal would make it ready
+- **Readiness:** ready (4 signals from 3 reports, 2 UX)
 
 ## 2026-11-23
 
 ### Logging in is not holding the keys
+- **Folds in:** Comprehension before configuration (2026-09-28)
 - **Theme:** `themes/propose-versus-sign.md`
 - **Thesis:** As custody products add logins, workspaces, proposer roles and agents, the most important sentence in the interface is the one that says which of them can actually move money.
 - **Why now:** Safe Pro now writes that separation into the product, and an agent wallet has shipped where the agent prepares and the user approves elsewhere.
 - **Evidence:** 2026-09-28 · 🟠 · Safe{Wallet} web-v1.101.0: Proposer Role Education and Spending Limits Pre-Flow · https://github.com/safe-global/safe-wallet-monorepo/releases/tag/web-v1.101.0 ; 2026-11-02 · 🔴 · Update: MetaMask Agent Wallet Goes Live as a Grok Bot Plugin, with Guard Mode Limits and Out-of-Band Approval · https://metamask.com/news/metamask-agent-wallet-grok-bot ; 2026-11-23 · 🔴 · Safe Pro Makes the Workspace the Account, but "No Workspace Role Grants Signing or Execution Authority" · https://safe.global/blog/authentication-is-not-authorization-how-safe-pro-separates-access-from-signing ; 2026-11-23 · 🔴 · Safe's New Queue Service Drops a Removed Owner's Pending Signatures and Delegations and Rejects Unsigned Proposals · https://safe.global/blog/new-queue-service-multichain-by-default
-- **The design move:** name three layers (access, propose, sign) and say on each screen which one the user is in. The login screen says what logging in can't do, Review says who prepared the transaction, and removing a signer visibly removes their pending approvals.
-- **Counterpoint:** Safe says its wallet sign-in "doesn't have 2FA yet", so the access layer is still the weak one, and naming it doesn't fix that. Three of the four signals come from one product family.
+- **The design move:** name three layers (access, propose, sign) and say on each screen which one the user is in. The login screen says what logging in can't do, Review says who prepared the transaction, and removing a signer visibly removes their pending approvals. Before any power is delegated, explain it first and configure it second, so users don't learn the scope by filling in a form.
+- **Counterpoint:** Safe says its wallet sign-in "doesn't have 2FA yet", so the access layer is still the weak one, and naming it doesn't fix that. Three of the four signals come from one product family. Explanation screens add friction, and expert users skip them anyway.
 - **Format:** essay · ~1,200 words
 - **Fit:** Refined · LinkedIn
 - **Readiness:** ready (4 signals from 3 reports, 3 of them UX)
